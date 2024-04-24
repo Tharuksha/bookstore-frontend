@@ -40,7 +40,7 @@ const BookList = () => {
 
   return (
     <div className="py-20">
-      asdw as dwa sa
+       
       <div className="xl:container mx-auto px-6 md:px-12">
         <div className="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {Bookdetails.map((Book) => (
