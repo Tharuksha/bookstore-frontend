@@ -31,11 +31,11 @@ const BookDetails = ({ book, onClose }) => {
       try {
         const book_id = book.bookId;
         const response = await axios.get(
-          `https://api-ad.tharuksha.com/review/comments/1`
+          `http://localhost:8080/review/comments/1`
         );
 
         const res = await axios.get(
-          `https://api-ad.tharuksha.com/review/comments/user/2`
+          `http://localhost:8080/review/comments/user/2`
         );
 
         setBookdetails(response.data);
@@ -47,7 +47,7 @@ const BookDetails = ({ book, onClose }) => {
           users: UserDetails.map((user) => user.firstname),
         };
 
-        const newCarouselData = responseData.comments.map((comments, index) => ({
+        const newCarouselData = responseData.comments.map((comment, index) => ({
           comments: responseData.comments[index],
           ratings: responseData.ratings[index],
           users: responseData.users,
