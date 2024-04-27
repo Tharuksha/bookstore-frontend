@@ -1,10 +1,6 @@
-import "./BookList.css";
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-//import Dialog from "@material-ui/core/Dialog";
 import BookDetails from "../BookDetails/BookDetails";
-//import DialogContent from "@material-ui/core/DialogContent";
 import bookimage from "../../images/book.jpeg";
 
 const BookList = () => {
@@ -13,7 +9,9 @@ const BookList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("https://api-ad.tharuksha.com/books/getAll");
+        const response = await axios.get(
+          "https://api-ad.tharuksha.com/books/getAll"
+        );
         console.log(response.data);
         setBookdetails(response.data);
       } catch (error) {
@@ -40,7 +38,6 @@ const BookList = () => {
 
   return (
     <div className="py-20">
-       
       <div className="xl:container mx-auto px-6 md:px-12">
         <div className="grid gap-6 px-4 sm:px-0 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           {Bookdetails.map((Book) => (
@@ -50,7 +47,7 @@ const BookList = () => {
               onClick={() => handleClickToOpen(Book)}
             >
               <img
-                className="mx-auto h-[26rem] w-full grayscale object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
+                className="mx-auto h-[26rem] w-full object-cover object-top transition duration-500 group-hover:scale-105 group-hover:grayscale-0"
                 src={bookimage} // Ensure you have an image attribute
               />
               <div className="text-center">

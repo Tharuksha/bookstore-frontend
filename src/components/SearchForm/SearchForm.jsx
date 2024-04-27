@@ -1,47 +1,44 @@
-import React, {useRef, useEffect} from 'react';
-import {FaSearch} from "react-icons/fa";
-import { useNavigate } from 'react-router-dom';
-import { useGlobalContext } from '../../context.js';
-import "./SearchForm.css";
+// SearchForm.jsx
+import React, { useState, useRef } from "react";
+import { FaSearch } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const SearchForm = () => {
-  const {setSearchTerm, setResultTitle} = useGlobalContext();
-  const searchText = useRef('');
+const SearchForm = ({ setSearchTerm }) => {
+  const [searchValue, setSearchValue] = useState("");
+  const searchInputRef = useRef(null);
   const navigate = useNavigate();
 
-  useEffect(() => searchText.current.focus(), []);
   const handleSubmit = (e) => {
     e.preventDefault();
-    let tempSearchTerm = searchText.current.value.trim();
-    if((tempSearchTerm.replace(/[^\w\s]/gi,"")).length === 0){
-      setSearchTerm("Search");
-      setResultTitle("Please Enter Something ...");
-    } else {
-      setSearchTerm(searchText.current.value);
+    if (searchValue.trim() !== "") {
+      setSearchTerm(searchValue.trim());
+      navigate("/book"); // Navigate to the book list page
     }
-
-    navigate("/book");
   };
 
-
-  
+  const handleChange = (e) => {
+    setSearchValue(e.target.value);
+  };
 
   return (
-    <div className='search-form'>
-      <div className='container'>
-        <div className='search-form-content'>
-          <form className='search-form' onSubmit={handleSubmit}>
-            <div className='search-form-elem flex flex-sb bg-white'>
-              <input type = "text" className='form-control' placeholder='Search' ref = {searchText} />
-              <button type = "submit" className='flex flex-c' onClick={handleSubmit}>
-                <FaSearch className='text-purple' size = {32} />
-              </button>
-            </div>
-          </form>
+    <div className="search-form">
+      <form className="search-form" onSubmit={handleSubmit}>
+        <div className="search-form-elem flex flex-sb bg-white">
+          <input
+            type="text"
+            className="form-control black-text"
+            placeholder="Search"
+            ref={searchInputRef}
+            value={searchValue}
+            onChange={handleChange}
+          />
+          <button type="submit" className="flex flex-c">
+            <FaSearch className="text-purple" size={32} />
+          </button>
         </div>
-      </div>
+      </form>
     </div>
-  )
-}
+  );
+};
 
-export default SearchForm
+export default SearchForm;

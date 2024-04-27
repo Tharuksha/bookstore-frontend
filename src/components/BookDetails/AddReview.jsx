@@ -2,22 +2,15 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const AddReview = ({ book, onClose }) => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
-  const handleClickToOpen = (book) => {
-    setIsPopupOpen(true);
-  };
-
-  const handleClose = () => {
-    setIsPopupOpen(false);
-  };
-
+const AddReview = ({ onClose, comment }) => {
   const [values, setValues] = useState({
-    comments: "test 3",
-    rating: 3,
+    comments: "test 5",
+    rating: 4,
     userid: 2,
-    book_id: book.bookId,
+    book_id: 1,
   });
+
+  const reviewid = localStorage.getItem("reviewid");
 
   const handleAdd = (e) => {
     e.preventDefault();
@@ -31,12 +24,12 @@ const AddReview = ({ book, onClose }) => {
   };
 
   return (
-    <div class="grid place-items-center fixed inset-0 overflow-y-auto bg-black bg-opacity-50 flex justify-center items-center p-12">
+    <div class="grid place-items-center fixed inset-0 overflow-y-auto bg-black bg-opacity-10 flex justify-center items-center p-12">
       <div class="w-11/12 p-12 bg-white lg:w-10/12">
         <h1 class="text-xl font-semibold">
           Hello there ?,{" "}
           <span class="font-normal">
-            please add your review about this book{" "}
+            please update your review about this book {reviewid}
           </span>
         </h1>
         <form class="mt-6" onSubmit={handleAdd}>

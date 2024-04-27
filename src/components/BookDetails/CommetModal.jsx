@@ -46,7 +46,7 @@ const CommentModal = ({ book, onClose }) => {
     console.log(res);
     try {
       const response = await axios.delete(
-        `https://api-ad.tharuksha.com/review/deleteComment/${res}`
+        `http://localhost:8080/review/deleteComment/${res}`
       );
       console.log(response.data);
       window.location.reload();
@@ -55,11 +55,29 @@ const CommentModal = ({ book, onClose }) => {
     }
   };
 
+  // useEffect(() => {
+  //   const fetching = async () => {
+  //     try {
+  //       const user_id = book.userid;
+  //       const response = await axios.get(
+  //         `https://api-ad.tharuksha.com/api/signin`
+  //       );
+  //       console.log(response.data);
+  //       window.location.reload();
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
+
+  //   fetching();
+  // }, []);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const book_id = book.bookId;
         const response = await axios.get(
-          "https://api-ad.tharuksha.com/review/comments/user/2"
+          `http://localhost:8080/review/comments/${book_id}`
         );
         console.log(response.data);
         setCommentdetails(response.data);
@@ -103,7 +121,7 @@ const CommentModal = ({ book, onClose }) => {
                   <th>
                     {" "}
                     <button
-                      onClick={() => handleClickToOpen(book)}
+                      onClick={() => handleClickToOpen(book.bookId)}
                       type="button"
                       class="mr-3 text-sm bg-blue-500 hover:bg-blue-700 text-white py-1 px-2 rounded focus:outline-none focus:shadow-outline"
                     >
