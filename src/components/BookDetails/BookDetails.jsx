@@ -3,7 +3,7 @@ import bookimage from "../../images/book.jpeg";
 import CommentModal from "../BookDetails/CommetModal";
 import axios from "axios";
 import StarRating from "./StarRating";
-import { Link } from "react-router-dom"; // Import Link from React Router or the appropriate routing library
+import { Link } from "react-router-dom";
 
 const BookDetails = ({ book, onClose }) => {
   const [isPopupOpen, setIsPopupOpen] = useState(false);
@@ -29,7 +29,6 @@ const BookDetails = ({ book, onClose }) => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const book_id = book.bookId;
         const response = await axios.get(
           `https://api-ad.tharuksha.com/review/comments/1`
         );
@@ -40,27 +39,29 @@ const BookDetails = ({ book, onClose }) => {
 
         setBookdetails(response.data);
         setUserdetails(res.data);
-
-        const responseData = {
-          comments: Bookdetails.map((book) => book.comments),
-          ratings: Bookdetails.map((book) => book.rating),
-          users: UserDetails.map((user) => user.firstname),
-        };
-
-        const newCarouselData = responseData.comments.map((comment, index) => ({
-          comments: responseData.comments[index],
-          ratings: responseData.ratings[index],
-          users: responseData.users,
-        }));
-
-        setCarouselData(newCarouselData);
       } catch (error) {
         console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
-  }, [Bookdetails]);
+  }, [book]);
+
+  useEffect(() => {
+    const responseData = {
+      comments: Bookdetails.map((book) => book.comments),
+      ratings: Bookdetails.map((book) => book.rating),
+      users: UserDetails.map((user) => user.firstname),
+    };
+
+    const newCarouselData = responseData.comments.map((comment, index) => ({
+      comments: responseData.comments[index],
+      ratings: responseData.ratings[index],
+      users: responseData.users,
+    }));
+
+    setCarouselData(newCarouselData);
+  }, [Bookdetails, UserDetails]);
 
   useEffect(() => {
     intervalRef.current = setInterval(() => {
@@ -91,7 +92,7 @@ const BookDetails = ({ book, onClose }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
       <div className="relative block overflow-hidden rounded-lg bg-white border border-gray-100 p-12">
         <button
-          onClick={onClose} // Call onClose function when the button is clicked
+          onClick={onClose}
           className="absolute -end-1 -top-1 rounded-full border border-gray-300 bg-gray-100 p-1"
         >
           <span className="sr-only">Close</span>
@@ -146,8 +147,7 @@ const BookDetails = ({ book, onClose }) => {
           <div className="container max-w-xl mx-auto">
             <div className="flex flex-col items-center w-full p-6 space-y-8 rounded-md lg:h-full lg:p-8 dark:bg-gray-50 dark:text-gray-800">
               <blockquote className="max-w-lg text-lg italic font-medium text-center">
-                "{carouselData.length > 0 && carouselData[activeIndex].comments}
-                "
+                "{carouselData.length > 0 && carouselData[activeIndex].comments}"
               </blockquote>
               <div className="text-center dark:text-gray-600">
                 <p>
