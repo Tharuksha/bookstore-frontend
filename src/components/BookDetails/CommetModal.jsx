@@ -46,7 +46,7 @@ const CommentModal = ({ book, onClose }) => {
     console.log(res);
     try {
       const response = await axios.delete(
-        `http://localhost:8080/review/deleteComment/${res}`
+        `https://api-ad.tharuksha.com/review/deleteComment/${res}`
       );
       console.log(response.data);
       window.location.reload();
@@ -77,7 +77,7 @@ const CommentModal = ({ book, onClose }) => {
       try {
         const book_id = book.bookId;
         const response = await axios.get(
-          `http://localhost:8080/review/comments/${book_id}`
+          `https://api-ad.tharuksha.com/review/comments/${book_id}`
         );
         console.log(response.data);
         setCommentdetails(response.data);
