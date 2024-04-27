@@ -47,7 +47,7 @@ const BookDetails = ({ book, onClose }) => {
           users: UserDetails.map((user) => user.firstname),
         };
 
-        const newCarouselData = responseData.comments.map((comment, index) => ({
+        const newCarouselData = responseData.comments.map((comments, index) => ({
           comments: responseData.comments[index],
           ratings: responseData.ratings[index],
           users: responseData.users,
