@@ -31,11 +31,11 @@ const BookDetails = ({ book, onClose }) => {
       try {
         const book_id = book.bookId;
         const response = await axios.get(
-          `http://localhost:8080/review/comments/1`
+          `https://api-ad.tharuksha.com/review/comments/1`
         );
 
         const res = await axios.get(
-          `http://localhost:8080/review/comments/user/2`
+          `https://api-ad.tharuksha.com/review/comments/user/2`
         );
 
         setBookdetails(response.data);

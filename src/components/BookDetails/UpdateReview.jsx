@@ -13,7 +13,7 @@ const UpdateReview = ({ onClose, comment }) => {
   const handleAdd = (e) => {
     e.preventDefault();
     axios
-      .put(`http://localhost:8080/review/updateComment/${reviewid}`, values)
+      .put(`https://api-ad.tharuksha.com/review/updateComment/${reviewid}`, values)
       .then((res) => {
         window.location.reload();
         console.log(res.data);
